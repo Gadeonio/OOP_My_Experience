@@ -1,7 +1,13 @@
+from Flys import FlyBehavior, FlyNoWay, FlyWithWings, FlyRocketPowered
+from Quacks import Quack, QuackBehavior, MuteQuack, Squeak
+
+
 class Duck:
 
     def __init__(self):
         print("Я родился")
+        self.quackBehavior = QuackBehavior()
+        self.flyBehavior = FlyBehavior()
 
     def swim(self):
         print("Я плаваю")
@@ -9,33 +15,33 @@ class Duck:
     def display(self):
         pass
 
+    def performFly(self):
+        self.flyBehavior.fly()
 
-class Flyable:
-    def fly(self):
-        pass
-
-
-class Fly_bird(Flyable):
-
-    def fly(self):
-        print("Лечу как птица")
+    def performQuack(self):
+        self.quackBehavior.quack()
 
 
-class Quackable:
-    def quack(self):
-        pass
+class MallardDuck(Duck):
+    def __init__(self):
+        super().__init__()
+        self.quackBehavior = Quack()
+        self.flyBehavior = FlyWithWings()
+
+    def display(self):
+        print("I'm real Mallard duck")
 
 
-class Quack_bird(Quackable):
-    def quack(self):
-        print("Кря")
+class ModelDuck(Duck):
+    def __init__(self):
+        super().__init__()
+        self.flyBehavior = FlyNoWay()
+        self.quackBehavior = MuteQuack()
+
+    def display(self):
+        print("I'm a model duck")
 
 
-class MyDuck(Duck, Fly_bird, Quack_bird):
-    pass
 
-if __name__=="__main__":
-    Donald = MyDuck()
-    Donald.quack()
-    Donald.fly()
-    Donald.swim()
+
+
